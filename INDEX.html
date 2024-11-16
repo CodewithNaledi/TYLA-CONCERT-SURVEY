@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TYLA Concert Survey</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+    <style>
+  
+      body {
+        font-family: 'Quicksand', sans-serif;
+        background-image: url('tyla concert.jpg'); 
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+        color: rgb(236, 235, 235);
+      }
+
+      header {
+        font-family: 'Roboto', sans-serif;
+        font-size: 26px;
+        text-align: center;
+        margin: 20px 0;
+        font-weight: bold;
+      }
+
+      #survey-form {
+        background-color: rgba(211, 80, 80, 0.8); 
+        width: 70%;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      #description {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .fieldset {
+        border-width: 0;
+        padding-top: 1%;
+      }
+
+      .sub-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 1%;
+      }
+
+      label.left {
+        width: 30%;
+        text-align: right;
+        padding-right: 10px;
+      }
+
+      .right {
+        width: 60%;
+      }
+
+      .input-field,
+      .dropdown,
+      .textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #c0c0c0;
+        margin-top: 5px;
+      }
+
+      #dropdown,
+      select {
+        height: 40px;
+      }
+
+      .checkbox,
+      .radio {
+        margin: 10px 0;
+      }
+
+      #submit {
+        background-color: #4CAF50;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 4px;
+        font-size: 18px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      #submit:hover {
+        background-color: #45a049;
+      }
+
+      #progress-bar-container {
+        width: 100%;
+        background-color: #ddd;
+        height: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      #progress-bar {
+        height: 100%;
+        background-color: #4CAF50;
+        width: 0%;
+        border-radius: 5px;
+      }
+
+      #completion-percentage {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .carousel img {
+        width: 100%;
+        height: auto;
+        display: none;
+      }
+
+      .carousel img.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>TYLA Concert Feedback</h1>
+    </header>
+
+    <div id="survey-form">
+      <div id="description">
+        We value your feedback! Please fill out the survey to help us improve future concerts.
+      </div>
+
+      <div id="completion-percentage">0% Complete</div>
+
+      <form id="survey-form" onsubmit="return validateForm()">
+        <!-- Personal Information -->
+        <fieldset class="fieldset">
+          <div class="sub-group">
+            <label class="left" for="name">*Name:</label>
+            <input type="text" name="name" class="right input-field" id="name" placeholder="Enter your name" required>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" for="email">*Email:</label>
+            <input type="email" name="email" class="right input-field" id="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" for="age">*Age:</label>
+            <input type="number" name="age" class="right input-field" id="age" placeholder="Enter your age" required>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" for="phone">*Phone Number:</label>
+            <input type="text" name="phone" class="right input-field" id="phone" placeholder="Enter your phone number" required>
+          </div>
+        </fieldset>
+
+        <!-- Concert Experience -->
+        <fieldset class="fieldset">
+          <div class="sub-group">
+            <label class="left" for="first-time">*Is this your first TYLA concert?</label>
+            <select class="right input-field" id="first-time" name="first-time" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" for="feedback">*How would you rate the concert?</label>
+            <select class="right input-field" id="feedback" name="feedback" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="Excellent">Excellent</option>
+              <option value="Good">Good</option>
+              <option value="Average">Average</option>
+              <option value="Poor">Poor</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- Special Accommodations -->
+        <fieldset class="fieldset">
+          <div class="sub-group">
+            <label class="left" for="accommodation">Did you require special accommodations?</label>
+            <select class="right input-field" id="accommodation" name="accommodation">
+              <option value="None">None</option>
+              <option value="Wheelchair">Wheelchair Access</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- Comments Section -->
+        <fieldset class="fieldset">
+          <div class="sub-group">
+            <label class="left" for="comments">Any comments or suggestions?</label>
+            <textarea name="comments" id="comments" class="right input-field" rows="4" placeholder="Your feedback..."></textarea>
+          </div>
+        </fieldset>
+
+        <button type="submit" id="submit">Submit</button>
+      </form>
+
+      <!-- Progress Bar -->
+      <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+      </div>
+
+      <!-- Image Carousel -->
+      <div class="carousel">
+        <img src="concert.jpg" alt="Concert Photo 1" class="active">
+        <img src="performance concert.jpg" alt="Concert Photo 2">
+        <img src="performance.jpg" alt="Concert Photo 3">
+      </div>
+    </div>
+
+    <script>
+      // Form validation
+      function validateForm() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const age = document.getElementById('age').value;
+
+        if (!name || !email || !phone || !age) {
+          alert('Please fill out all required fields.');
+          return false;
+        }
+        return true;
+      }
+
+      // Progress Bar and Completion Percentage
+      const formElements = document.querySelectorAll('#survey-form input, #survey-form select');
+      formElements.forEach(element => {
+        element.addEventListener('input', updateProgress);
+      });
+
+      function updateProgress() {
+        let filledFields = 0;
+        formElements.forEach(element => {
+          if ((element.type === 'checkbox' || element.type === 'radio') && element.checked) {
+            filledFields++;
+          } else if (element.value) {
+            filledFields++;
+          }
+        });
+
+        const progress = (filledFields / formElements.length) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+        document.getElementById('completion-percentage').textContent = `${Math.round(progress)}% Complete`;
+      }
+
+      // Image Carousel
+      let currentIndex = 0;
+      const images = document.querySelectorAll('.carousel img');
+      setInterval(() => {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add('active');
+      }, 3000);
+    </script>
+  </body>
+</html>
+
+
+
+
+
